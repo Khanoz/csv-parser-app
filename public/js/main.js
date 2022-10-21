@@ -1,3 +1,17 @@
+//TODO: Check file for csv format
+/*
+    if (file_obj.type != 'text/csv'){
+        suppText.textContent = "Solo acepta archivos .csv";
+        suppText.style.color = 'red';
+    }
+    */
+class InputFile{
+    constructor(element, index){
+        this.element = element;
+        this.index = index;
+    }
+}
+
 const dragAreas = document.querySelectorAll('.drag-area');
 
 for(i = 0; i < dragAreas.length; i++){ 
@@ -13,27 +27,52 @@ for(i = 0; i < dragAreas.length; i++){
 }
 
 
+var fileArray = [null, null];
+var time = Date.now();
 
-var fileobj;
 const suppText = document.querySelector('.support');
 
 const firstFile = document.querySelector('.firstFile');
 file_explorer();
-function upload_file(e) {
+function upload_file(e, index) {
     e.preventDefault();
-    fileobj = e.dataTransfer.files[0];
-    ajax_file_upload(fileobj);
+    var fileobj = e.dataTransfer.files[0];
+    console.log("index is: "+index);
+    fileArray[index] = fileobj;
+    readFile(fileobj, index);
+}
+  
+function file_explorer() {
+    for(var i = 0; i < dragAreas.length; i++){
+        let inputFile = new InputFile(document.getElementById('inputFile'+i), i);
+        inputFile.element.click();
+        inputFile.element.onchange = function() {
+            var fileobj = inputFile.element.files[0];
+            fileArray[inputFile.index] = fileobj;
+            console.log("explorar index is: "+inputFile.index);
+            readFile(fileobj, inputFile.index);
+        };
+    }
+}
+  
+function readFile(fileobj, selectIndex){
     let reader = new FileReader();
     reader.readAsText(fileobj);
     reader.onload = function() {
         const headers = reader.result.slice(0, reader.result.indexOf("\n")).split(",");
-        console.log(headers);
-        suppText.textContent = headers;
-        
-        var row = firstFile.insertRow();
-        for(i = 0; i < headers.length; i++){
-            var td = row.insertCell(i);
-            td.innerText = headers[i];
+        select = document.getElementById('file'+selectIndex);
+        select.options.length = 0;
+        colLinkSelect = document.getElementById('colLink'+selectIndex);
+        colLinkSelect.options.length = 0;
+        for (var i = 0; i<headers.length; i++){
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = headers[i];
+            select.appendChild(opt);
+            var optCol = document.createElement('option');
+            optCol.value = i;
+            optCol.innerHTML = headers[i];
+            colLinkSelect.appendChild(optCol);
         }
     };
 
@@ -41,35 +80,37 @@ function upload_file(e) {
         console.log(reader.error);
     };
 }
-  
-function file_explorer() {
-    document.getElementById('selectFile').click();
-    document.getElementById('selectFile').onchange = function() {
-        fileobj = document.getElementById('selectFile').files[0];
-        ajax_file_upload(fileobj);
-    };
-}
-  
-function ajax_file_upload(file_obj) {
-    if (file_obj.type != 'text/csv'){
-        suppText.textContent = "Solo acepta archivos .csv";
-        suppText.style.color = 'red';
-    }
-    if(file_obj != undefined) {
+
+function ajax_file_upload() {
+    console.log('hola');
+    if(fileArray[0] != undefined && fileArray[1] != undefined) {
         var form_data = new FormData();                  
-        form_data.append('file', file_obj);
+        form_data.append('file0', fileArray[0]);         
+        form_data.append('file1', fileArray[1]);
+        form_data.append('time', time);
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "ajax.php", true);
         xhttp.onload = function(event) {
-            oOutput = document.querySelector('.img-content');
             if (xhttp.status == 200) {
-                oOutput.innerHTML = "<img src='"+ this.responseText +"' alt='The Image' />";
+                console.log('http finished, submitting form');
+                submitForm();
+                //oOutput.innerHTML = "<img src='"+ this.responseText +"' alt='The Image' />";
             } else {
-                oOutput.innerHTML = "Error " + xhttp.status + " occurred when trying to upload your file.";
+                console.log(xhttp.status);
+                //oOutput.innerHTML = "Error " + xhttp.status + " occurred when trying to upload your file.";
             }
-        }
-        console.log(file_obj)
+        };
         xhttp.send(form_data);
-        document.getElementById("selectFile").value = "";
     }
+    else{
+        console.log("No se cargaron 2 archivos");
+    }
+}
+
+function submitForm(){
+    console.log(fileArray[0]);
+    console.log(time);
+    document.getElementById('FN0').value = time+"_"+fileArray[0].name;
+    document.getElementById('FN1').value = (time+5)+"_"+fileArray[1].name;
+    document.getElementById('form').submit();
 }

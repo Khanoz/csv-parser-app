@@ -11,36 +11,60 @@
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/main.css') }}">
     </head>
     <body>
-        <div class="box">
-            <div class="container">
-                <h3>Upload your file</h3>
-                <div class="drag-area" ondrop="upload_file(event);">
-                    <label for="selectFile" class="input_label">
-                        Seleccionar archivo
-                        <input type="file" id="selectFile" accept="text/csv">
-                    </label>
-                    <span class="header"> o Drag & Drop</span>
-                    <span class ="support">Solo soporta archivos .csv</span>
-                </div>
-                <table>
-                    <thead class="firstFile">
-                    </thead>                
-                    <tbody>
-                    </tbody>
-                </table>
+        <form id="form" class="box" action="compare" method="POST" enctype="multipart/form-data">
+        @csrf <!-- {{ csrf_field() }} -->
+        <div class="container">
+            <h3>Upload your file</h3>
+            <div class="drag-area" ondrop="upload_file(event, 0, 'inputFile0');">
+                <label for="inputFile0" class="input_label">
+                    Seleccionar archivo
+                    <input name='csvfile' type="file" id="inputFile0" class="selectFile" accept="text/csv">
+                </label>
+                <span class="header"> o Drag & Drop</span>
+                <span class ="support">Solo soporta archivos .csv</span>
             </div>
-            <div class="container">
-                <h3>Upload your file</h3>
-                <div class="drag-area" ondrop="upload_file(event);">
-                    <label for="selectFile" class="input_label">
-                        Seleccionar archivo
-                        <input type="file" id="selectFile" accept="text/csv">
-                    </label>
-                    <span class="header"> o Drag & Drop</span>
-                    <span class ="support">Solo soporta archivos .csv</span>
+            <div class="selectDiv">
+                <div>
+                    <h3>Columna a comparar</h3>
+                    <select name="file0" id="file0">
+                    </select>
+                </div>
+                
+                <div>
+                    <h3>Columna a conectar</h3>
+                    <select name="columnLink0" id="colLink0">
+                    </select>
                 </div>
             </div>
         </div>
+
+        <div class="container">
+            <h3>Upload your file</h3>
+            <div class="drag-area" ondrop="upload_file(event, 1);">
+                <label for="inputFile1" class="input_label">
+                    Seleccionar archivo
+                    <input  type="file" id="inputFile1" class="selectFile" accept="text/csv">
+                </label>
+                <span class="header"> o Drag & Drop</span>
+                <span class ="support">Solo soporta archivos .csv</span>
+            </div>
+            <div class="selectDiv">
+                <div>
+                    <h3>Columna a comparar</h3>
+                    <select name="file1" id="file1">
+                    </select>
+                </div>
+                <div>
+                    <h3>Columna a conectar</h3>
+                    <select name="columnLink1" id="colLink1">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <input type="text" name="fileName0" style="display: none" id="FN0">
+        <input type="text" name="fileName1" style="display: none" id="FN1">
+        <button id="compareBtn" type="button" onclick="ajax_file_upload();" >Comparar Archivos</button>
+        </form>
         <script src="js/main.js"></script>
     </body>
 </html>
