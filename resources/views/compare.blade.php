@@ -15,11 +15,11 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     </head>
-    
     <body>
-        <div class="loader"></div>
 <?php
-flush();
+        /*<div class="loader"></div>
+
+flush();*/
 Class DataToCompare{
     public $real;
     public $dirty;
