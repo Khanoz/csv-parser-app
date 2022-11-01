@@ -11,11 +11,12 @@
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/main.css') }}">
     </head>
     <body>
-        <form id="form" class="box" action="compare" method="POST" enctype="multipart/form-data">
+        <div id="loader" class="bg nodisplay"></div> 
+        <form id="form" class="box" action="{{route('comparecsv')}}" method="POST" enctype="multipart/form-data">
         @csrf <!-- {{ csrf_field() }} -->
-        <div class="container">
+        <div id="container" class="container">
             <h3>Upload your file</h3>
-            <div class="drag-area" ondrop="upload_file(event, 0, 'inputFile0');">
+            <div class="drag-area" ondrop="upload_file(event, 0);">
                 <label for="inputFile0" class="input_label">
                     Seleccionar archivo
                     <input name='csvfile' type="file" id="inputFile0" class="selectFile" accept="text/csv">

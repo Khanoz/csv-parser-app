@@ -81,7 +81,14 @@ function readFile(fileobj, selectIndex){
     };
 }
 
+function spinning_loader(){
+    loader = document.getElementById("loader");
+    loader.classList.remove("nodisplay");
+    loader.classList.add("loader");
+}
+
 function ajax_file_upload() {
+    spinning_loader();
     console.log('hola');
     if(fileArray[0] != undefined && fileArray[1] != undefined) {
         var form_data = new FormData();                  

@@ -1,5 +1,7 @@
 <?php
-echo $_POST["toCompare"];
+echo $msg;
+echo "<br>Hubo un error agregando " . $errorCounter . " registros.<br><br>";
+echo $errorMsg;
     ?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">

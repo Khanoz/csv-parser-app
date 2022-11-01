@@ -2,83 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\csvtest;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class CsvDataController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function uploadData(Request $request)
     {
-        //
-    }
+        // Validate the request...
+        $errorCounter = 0;
+        $errorMsg = "";
+        $arr = $request->inputTest;
+        foreach ($arr as $value){
+            $dataArr = explode('|', $value);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            try {
+                
+            $dataTable = new csvtest;
+            $dataTable->catid = $dataArr[0];
+            $dataTable->catname = $dataArr[1];
+            $dataTable->cangid = $dataArr[2];
+            $dataTable->cangname = $dataArr[3];
+            $dataTable->autoComplete = $dataArr[4];
+            $dataTable->save();
+            } catch (QueryException $e) {
+                $errorMsg = $errorMsg . "<br><br>" . $dataArr[0] . "  " . $dataArr[1] . "  |  " . $dataArr[2] . "  " . $dataArr[3];
+                $errorCounter++;
+            }
+        }
+        $msg = "Se agregaron de manera exitosa";
+        
+        return view('loaded', compact('msg', 'errorMsg', 'errorCounter'));
+        
     }
 }

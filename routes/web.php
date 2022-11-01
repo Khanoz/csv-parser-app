@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\csvtestController;
+use App\Http\Controllers\CompareController;
+use App\Http\Controllers\CsvDataController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,25 +19,8 @@ Route::get('/', function () {
     return view('main');
 });
 
-Route::post('/test', [csvtestController::class, 'store'])->name('testcsv');
+Route::post('/compare/load', [CsvDataController::class, 'uploadData'])->name('loadData');
 
-/*Route::post('/test', function() {
-    return view('test');
-});*/
-
-Route::get('/testAutoComplete', function() {
-    return view('autoCompleteTest');
-});
-
-Route::match(array('GET', 'POST'), '/compare', function()
-{
-    return view('compare');
-});
-
-Route::post('/compare/load', function() {
-    return view('loadData');
-});
-
-//Auth::routes();
+Route::post('/compare', [CompareController::class, 'compare'])->name('comparecsv');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
