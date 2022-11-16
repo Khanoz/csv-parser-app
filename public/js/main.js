@@ -89,7 +89,6 @@ function spinning_loader(){
 
 function ajax_file_upload() {
     spinning_loader();
-    console.log('hola');
     if(fileArray[0] != undefined && fileArray[1] != undefined) {
         var form_data = new FormData();                  
         form_data.append('file0', fileArray[0]);         
@@ -121,3 +120,11 @@ function submitForm(){
     document.getElementById('FN1').value = (time+5)+"_"+fileArray[1].name;
     document.getElementById('form').submit();
 }
+
+function onClickCaptcha() {
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6LdxNAwjAAAAAMt2WtDFKkkGfp2It-xD9K7WU10g', {action: 'submit'}).then(function(token) {
+          ajax_file_upload();
+      });
+    });
+  }

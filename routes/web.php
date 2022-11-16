@@ -22,5 +22,3 @@ Route::get('/', function () {
 Route::post('/compare/load', [CsvDataController::class, 'uploadData'])->name('loadData');
 
 Route::post('/compare', [CompareController::class, 'compare'])->name('comparecsv');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

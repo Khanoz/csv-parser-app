@@ -116,8 +116,6 @@ echo "<br>";
                 <?php echo '["' . implode('", "', $realValueArray) . '"]' ?>;
             let iterations = 
                 <?php echo count($valuesArray)?>;
-            console.log(arrId.length);
-            console.log(arrName.length);
             let sortedNames = arrName;//.sort();
             //reference
             let inputArray = [];
@@ -162,8 +160,6 @@ echo "<br>";
                 }
             function displayNames(value, inputIndex, arrayIndex) {
                 //input.element.value = value;
-                console.log(inputIndex);
-                console.log(arrayIndex);
                 var input = inputArray[inputIndex];
                 input.element.value = value;
                 id = arrId[arrayIndex];

@@ -127,3 +127,12 @@ select{
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+.captchaContainer{
+    margin-top:2rem;
+    top:95%;
+    position: absolute;
+}
+#key{
+    color: red;
+}

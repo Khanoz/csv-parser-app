@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/main.css') }}">
     </head>
-    <body>
+    <body onload="generate()">
         <div id="loader" class="bg nodisplay"></div> 
         <form id="form" class="box" action="{{route('comparecsv')}}" method="POST" enctype="multipart/form-data">
         @csrf <!-- {{ csrf_field() }} -->
@@ -64,8 +64,14 @@
         </div>
         <input type="text" name="fileName0" style="display: none" id="FN0">
         <input type="text" name="fileName1" style="display: none" id="FN1">
-        <button id="compareBtn" type="button" onclick="ajax_file_upload();" >Comparar Archivos</button>
+    
+        <button id="compareBtn" class="g-recaptcha" type="button" onclick="onClickCaptcha();">Comparar Archivos</button>
         </form>
+        <div id="captchaContainer">
+            
+        </div>
+        <script src="https://www.google.com/recaptcha/api.js?render=6LdxNAwjAAAAAMt2WtDFKkkGfp2It-xD9K7WU10g"></script>
+      
         <script src="js/main.js"></script>
     </body>
 </html>

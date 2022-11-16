@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+//TODO: memory limit y tiempo limite
 
 class CompareController extends Controller
 {
@@ -69,9 +69,8 @@ class CompareController extends Controller
         $dataToCompareArray = array();
         $realValueArray = array();
         $idArray = array();
-        for($j = 2; $j <= 100; $j++){
+        for($j = 2; $j <= $totalRows1; $j++){
             $realValueToCompare = $sheet1->getCell("{$col1}{$j}")->getValue();
-            //$letter = [$realValueToCompare]
             $realValueToCompare = $this->clean_strings_accents($realValueToCompare);
             $realValueToCompare = utf8_decode($realValueToCompare);
             $realValueToCompare = $this->remove_accents($realValueToCompare);
@@ -94,7 +93,7 @@ class CompareController extends Controller
         
         $valuesArray = array();
         $range = 0;
-        for ($row0 = 2; $row0 <= 100; $row0++){
+        for ($row0 = 2; $row0 <= $totalRows0; $row0++){
             
             $realValue = $sheet0->getCell("{$col0}{$row0}")->getValue();
             $realValue = $this->clean_strings_accents($realValue);
