@@ -8,7 +8,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 70vh;
     flex-direction: column;
     background: #e0eafc;
     background: -webkit-linear-gradient(to right, #cfdef3, #e0eafc);
@@ -31,7 +31,6 @@ body {
     background: #fff;
     border-radius: 20px;
     box-shadow: rgba(149,157,165,0.2) 0px 8px 24px;
-    float: left;
 }
 
 .drag-area {
@@ -99,13 +98,6 @@ select{
     margin: 0px 5px 0px 5px ;
     height: 2em;
 }
-#compareBtn {
-    height: 2rem;
-    width: 13rem;
-    position: absolute;
-    top: 90%;
-}
-
 .selectDiv h3{
     
     text-align:center;
@@ -128,11 +120,6 @@ select{
     100% { transform: rotate(360deg); }
   }
 
-.captchaContainer{
-    margin-top:2rem;
-    top:95%;
-    position: absolute;
-}
-#key{
-    color: red;
+#captchaDiv{
+    align-items: center;
 }

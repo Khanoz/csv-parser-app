@@ -88,8 +88,25 @@ function spinning_loader(){
 }
 
 function ajax_file_upload() {
-    spinning_loader();
-    if(fileArray[0] != undefined && fileArray[1] != undefined) {
+    var response = grecaptcha.getResponse();
+    if(response.length == 0){
+        document.getElementById("modalText").innerHTML = "Verificar que no es robot."
+        $("#myModal").modal();
+        return;
+    }
+    if(fileArray[0] == undefined && fileArray[1] == undefined) {
+        document.getElementById("modalText").innerHTML = "Cargar dos archivos."
+        $("#myModal").modal();
+    }
+    else if(fileArray[0] == undefined) {
+        document.getElementById("modalText").innerHTML = "Carga el primer archivo."
+        $("#myModal").modal();
+    }
+    else if(fileArray[1] == undefined){
+        document.getElementById("modalText").innerHTML = "Carga el segundo archivo."
+        $("#myModal").modal();}
+    else{
+        spinning_loader();
         var form_data = new FormData();                  
         form_data.append('file0', fileArray[0]);         
         form_data.append('file1', fileArray[1]);
@@ -108,23 +125,18 @@ function ajax_file_upload() {
         };
         xhttp.send(form_data);
     }
-    else{
-        console.log("No se cargaron 2 archivos");
-    }
 }
 
 function submitForm(){
-    console.log(fileArray[0]);
-    console.log(time);
     document.getElementById('FN0').value = time+"_"+fileArray[0].name;
     document.getElementById('FN1').value = (time+5)+"_"+fileArray[1].name;
     document.getElementById('form').submit();
 }
-
+/* Captcha v3
 function onClickCaptcha() {
     grecaptcha.ready(function() {
-      grecaptcha.execute('6LdxNAwjAAAAAMt2WtDFKkkGfp2It-xD9K7WU10g', {action: 'submit'}).then(function(token) {
+      grecaptcha.execute('key', {action: 'submit'}).then(function(token) {
           ajax_file_upload();
       });
     });
-  }
+  }*/

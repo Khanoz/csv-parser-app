@@ -10,7 +10,6 @@ class CompareController extends Controller
     
     function compare(Request $request)
     {
-        $hola = new \App\Library\DataToCompare("a0", "b");
         $trimValues = "\0\t\n\x0B\r";
         $replaceCharacters = array(
             'and' => '', '&' => '',
