@@ -87,17 +87,7 @@ echo "<br>";
             <button type="buton" onclick="isChecked(<?php echo count($valuesArray); ?>)" name="databtn">Guardar cambios</button>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-        <script>
-            /*$(document).ready(function() {
-                $('#tablePag').DataTable();
-            });*/
-        </script>
         <script src="js/compare.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
         <script type="text/javascript">
             

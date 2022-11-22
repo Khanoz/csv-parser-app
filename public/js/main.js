@@ -89,22 +89,21 @@ function spinning_loader(){
 
 function ajax_file_upload() {
     var response = grecaptcha.getResponse();
-    if(response.length == 0){
-        document.getElementById("modalText").innerHTML = "Verificar que no es robot."
+    var errormsg = "";
+    var showModal = false;
+    var isRecaptcha = response.length == 0;
+    var isFile0 = fileArray[0] == undefined;
+    var isFile1 = fileArray[1] == undefined;
+
+    errormsg  = isRecaptcha ? "Verificar que no es robot.<br>" : "";
+    errormsg += isFile0     ? "Carga el primer archivo.<br>" : "";
+    errormsg += isFile1     ? "Carga el segundo archivo." : "";
+    
+    showModal = isRecaptcha || isFile0 || isFile1;
+    if(showModal){
+        document.getElementById("modalText").innerHTML = errormsg;
         $("#myModal").modal();
-        return;
     }
-    if(fileArray[0] == undefined && fileArray[1] == undefined) {
-        document.getElementById("modalText").innerHTML = "Cargar dos archivos."
-        $("#myModal").modal();
-    }
-    else if(fileArray[0] == undefined) {
-        document.getElementById("modalText").innerHTML = "Carga el primer archivo."
-        $("#myModal").modal();
-    }
-    else if(fileArray[1] == undefined){
-        document.getElementById("modalText").innerHTML = "Carga el segundo archivo."
-        $("#myModal").modal();}
     else{
         spinning_loader();
         var form_data = new FormData();                  
